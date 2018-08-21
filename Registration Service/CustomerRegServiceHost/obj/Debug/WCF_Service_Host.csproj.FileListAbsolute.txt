@@ -1,0 +1,16 @@
+C:\CMP7038_Workspace\Dot_Net_Services\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service_Host.exe.config
+C:\CMP7038_Workspace\Dot_Net_Services\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service_Host.exe
+C:\CMP7038_Workspace\Dot_Net_Services\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service_Host.pdb
+C:\CMP7038_Workspace\Dot_Net_Services\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service.dll
+C:\CMP7038_Workspace\Dot_Net_Services\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service.pdb
+C:\CMP7038_Workspace\Dot_Net_Services\WCF_Solution\WCF_Service_Host\obj\Debug\WCF_Service_Host.csprojResolveAssemblyReference.cache
+C:\CMP7038_Workspace\Dot_Net_Services\WCF_Solution\WCF_Service_Host\obj\Debug\WCF_Service_Host.exe
+C:\CMP7038_Workspace\Dot_Net_Services\WCF_Solution\WCF_Service_Host\obj\Debug\WCF_Service_Host.pdb
+C:\Temp\2017\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service_Host.exe.config
+C:\Temp\2017\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service_Host.exe
+C:\Temp\2017\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service_Host.pdb
+C:\Temp\2017\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service.dll
+C:\Temp\2017\WCF_Solution\WCF_Service_Host\bin\Debug\WCF_Service.pdb
+C:\Temp\2017\WCF_Solution\WCF_Service_Host\obj\Debug\WCF_Service_Host.csprojResolveAssemblyReference.cache
+C:\Temp\2017\WCF_Solution\WCF_Service_Host\obj\Debug\WCF_Service_Host.exe
+C:\Temp\2017\WCF_Solution\WCF_Service_Host\obj\Debug\WCF_Service_Host.pdb

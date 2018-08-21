@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://xml.netbeans.org/schema/Output.xsd"
+    xmlns:tns="http://xml.netbeans.org/schema/Output.xsd"
+    elementFormDefault="qualified">
+    
+    <xsd:complexType name="OutputType">
+        <xsd:sequence>
+           <xsd:element minOccurs="0" name="userId" type="xsd:int"/>
+           <xsd:element minOccurs="0" name="info"  type="tns:infoType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="infoType">
+       <xsd:choice>
+         <xsd:element minOccurs="0" name="msg" nillable="true"    
+                                                type="xsd:string"/>
+         <xsd:sequence>
+            <xsd:element minOccurs="0" name="carId" type="xsd:int"/>
+            <xsd:element minOccurs="0" name="carKey" nillable="true" 
+                           type="xsd:string"/>
+         </xsd:sequence>                    
+       </xsd:choice>
+   </xsd:complexType>
+</xsd:schema>

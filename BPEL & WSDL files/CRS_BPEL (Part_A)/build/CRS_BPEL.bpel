@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<process
+    name="CRS_BPEL"
+    targetNamespace="http://enterprise.netbeans.org/bpel/CRS_BPEL/CRS_BPEL"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/CRS_BPEL/CRS_BPEL"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor2"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling" xmlns:ns0="uk.ac.bcu.cmp7038.wcf" xmlns:ns1="http://xml.netbeans.org/schema/Output.xsd">
+    <import namespace="http://j2ee.netbeans.org/wsdl/CRS_BPEL/src/CRS_BPELWSDL" location="CRS_BPELWSDL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/CarRegistryWrapper" location="CarRegistryWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://jax.cmp7038.bcu.ac.uk/" location="CarRegistry.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/CustomerRegistryWrapper" location="CustomerRegistryWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="uk.ac.bcu.cmp7038.wcf" location="CustomerRegistry.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="Car_PL" xmlns:tns="http://enterprise.netbeans.org/bpel/CarRegistryWrapper" partnerLinkType="tns:CarRegistryInterfaceLinkType" partnerRole="CarRegistryInterfaceRole"/>
+        <partnerLink name="Cust_PL" xmlns:tns="http://enterprise.netbeans.org/bpel/CustomerRegistryWrapper" partnerLinkType="tns:ICustomerRegistryLinkType" partnerRole="ICustomerRegistryRole"/>
+        <partnerLink name="CBW_PL" xmlns:tns="http://j2ee.netbeans.org/wsdl/CRS_BPEL/src/CRS_BPELWSDL" partnerLinkType="tns:CRS_BPELWSDL" myRole="CRS_BPELWSDLPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="BookCarOut2" xmlns:tns="http://j2ee.netbeans.org/wsdl/CRS_BPEL/src/CRS_BPELWSDL" messageType="tns:BookCarResponse"/>
+        <variable name="GetAvailableCarOut" xmlns:tns="http://jax.cmp7038.bcu.ac.uk/" messageType="tns:getAvailableCarResponse"/>
+        <variable name="GetAvailableCarIn" xmlns:tns="http://jax.cmp7038.bcu.ac.uk/" messageType="tns:getAvailableCar"/>
+        <variable name="BookCarOut1" xmlns:tns="http://j2ee.netbeans.org/wsdl/CRS_BPEL/src/CRS_BPELWSDL" messageType="tns:BookCarResponse"/>
+        <variable name="IsAvailableOut" xmlns:tns="http://jax.cmp7038.bcu.ac.uk/" messageType="tns:isAvailableResponse"/>
+        <variable name="IsAvailableIn" xmlns:tns="http://jax.cmp7038.bcu.ac.uk/" messageType="tns:isAvailable"/>
+        <variable name="BookCarOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/CRS_BPEL/src/CRS_BPELWSDL" messageType="tns:BookCarResponse"/>
+        <variable name="CheckCustomerOut" xmlns:tns="uk.ac.bcu.cmp7038.wcf" messageType="tns:ICustomerRegistry_CheckCustomer_OutputMessage"/>
+        <variable name="CheckCustomerIn" xmlns:tns="uk.ac.bcu.cmp7038.wcf" messageType="tns:ICustomerRegistry_CheckCustomer_InputMessage"/>        
+        <variable name="BookCarIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/CRS_BPEL/src/CRS_BPELWSDL" messageType="tns:BookCarRequest"/>
+    </variables>
+    <pick name="Pick1" createInstance="yes">
+        <onMessage partnerLink="CBW_PL" operation="BookCar" xmlns:tns="http://j2ee.netbeans.org/wsdl/CRS_BPEL/src/CRS_BPELWSDL" portType="tns:CRS_BPELWSDLPortType" variable="BookCarIn">
+            <sequence name="Sequence1">
+                <assign name="Assign1">
+                    <copy>
+                        <from variable="BookCarIn" part="userId"/>
+                        <to>$CheckCustomerIn.parameters/ns0:customerID</to>
+                    </copy>
+                </assign>
+                <invoke name="Invoke1" partnerLink="Cust_PL" operation="CheckCustomer" xmlns:tns="uk.ac.bcu.cmp7038.wcf" portType="tns:ICustomerRegistry" inputVariable="CheckCustomerIn" outputVariable="CheckCustomerOut"/>
+                <if name="If1">
+                    <condition>true() = $CheckCustomerOut.parameters/ns0:CheckCustomerResult</condition>
+                    <sequence name="Sequence3">
+                        <assign name="Assign3">
+                            <copy>
+                                <from variable="BookCarIn" part="loc"/>
+                                <to>$IsAvailableIn.parameters/arg0</to>
+                            </copy>
+                        </assign>
+                        <invoke name="Invoke2" partnerLink="Car_PL" operation="isAvailable" xmlns:tns="http://jax.cmp7038.bcu.ac.uk/" portType="tns:CarRegistryInterface" inputVariable="IsAvailableIn" outputVariable="IsAvailableOut"/>
+                        <if name="If2">
+                            <condition>true() = $IsAvailableOut.parameters/return</condition>
+                            <sequence name="Sequence5">
+                                <assign name="Assign5">
+                                    <copy>
+                                        <from variable="BookCarIn" part="loc"/>
+                                        <to>$GetAvailableCarIn.parameters/arg0</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="Invoke3" partnerLink="Car_PL" operation="getAvailableCar" xmlns:tns="http://jax.cmp7038.bcu.ac.uk/" portType="tns:CarRegistryInterface" inputVariable="GetAvailableCarIn" outputVariable="GetAvailableCarOut"/>
+                                <assign name="Assign6">
+                                    <copy>
+                                        <from>$GetAvailableCarOut.parameters/return/carId</from>
+                                        <to>$BookCarOut2.part1/ns1:info/ns1:carId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetAvailableCarOut.parameters/return/carKey</from>
+                                        <to>$BookCarOut2.part1/ns1:info/ns1:carKey</to>
+                                    </copy>
+                                    <copy>
+                                        <from variable="BookCarIn" part="userId"/>
+                                        <to>$BookCarOut2.part1/ns1:userId</to>
+                                    </copy>
+                                </assign>
+                                <reply name="Reply3" partnerLink="CBW_PL" operation="BookCar" portType="tns:CRS_BPELWSDLPortType" variable="BookCarOut2"/>
+                            </sequence>
+                            <else>
+                                <sequence name="Sequence4">
+                                    <assign name="Assign4">
+                                        <copy>
+                                            <from>'Car Not Available'</from>
+                                            <to>$BookCarOut1.part1/ns1:info/ns1:msg</to>
+                                        </copy>
+                                        <copy>
+                                            <from variable="BookCarIn" part="userId"/>
+                                            <to>$BookCarOut1.part1/ns1:userId</to>
+                                        </copy>
+                                    </assign>
+                                    <reply name="Reply2" partnerLink="CBW_PL" operation="BookCar" portType="tns:CRS_BPELWSDLPortType" variable="BookCarOut1"/>
+                                </sequence>
+                            </else>
+                        </if>
+                    </sequence>
+                    <else>
+                        <sequence name="Sequence2">
+                            <assign name="Assign2">
+                                <copy>
+                                    <from>'Customer Not Registered'</from>
+                                    <to>$BookCarOut.part1/ns1:info/ns1:msg</to>
+                                </copy>
+                                <copy>
+                                    <from variable="BookCarIn" part="userId"/>
+                                    <to>$BookCarOut.part1/ns1:userId</to>
+                                </copy>
+                            </assign>
+                            <reply name="Reply1" partnerLink="CBW_PL" operation="BookCar" portType="tns:CRS_BPELWSDLPortType" variable="BookCarOut"/>
+                        </sequence>
+                    </else>
+                </if>
+            </sequence>
+        </onMessage>
+    </pick>
+</process>

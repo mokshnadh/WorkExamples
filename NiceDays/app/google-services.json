@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "525333680128",
+    "firebase_url": "https://nicedays-687d6.firebaseio.com",
+    "project_id": "nicedays-687d6",
+    "storage_bucket": "nicedays-687d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525333680128:android:0d7290f7820ea525",
+        "android_client_info": {
+          "package_name": "androidproject.nicedays"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525333680128-r9l1a69ep1f6r8kpjl10o36lcirkv1ek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHkmR9uI3BgEJpPQ1BTtC5SHO8yzTVkaY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
